@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Maths Learner — by SP Sir</title>
+  <meta name="description" content="Maths Learner by SP Sir — Courses for CBSE (9-12), JEE, IIT, NDA and UP TGT/PGT. Student access via agent password." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-grid">
+      <div class="brand">
+        <h1>Maths Learner <small>by SP Sir</small></h1>
+      </div>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#courses">Courses</a>
+        <a href="#how">How Access Works</a>
+        <a href="#contact">Contact</a>
+        <button id="btn-open-login" class="btn small">Student Login</button>
+        <button id="btn-open-agent" class="btn small">Agent Login</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container" id="home">
+      <div class="hero-left">
+        <h2>Master Mathematics with SP Sir</h2>
+        <p>Courses for CBSE (Class 9–12), JEE Mains &amp; IIT Advanced, NDA and UP TGT/PGT. Students access courses using credentials provided by authorized agents.</p>
+        <p class="muted">Secure agent-based access — students login using Agent ID and Agent password.</p>
+        <div class="hero-cta">
+          <a href="#courses" class="btn primary">View Courses</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="card stat">
+          <strong>Courses</strong>
+          <p id="total-courses">—</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="courses" class="container section">
+      <h3>Available Courses</h3>
+      <p class="muted">Click a course to view details. Paid courses use Stripe Checkout (sandbox).</p>
+      <div id="courses-list" class="cards-grid"></div>
+    </section>
+
+    <section id="how" class="container section">
+      <h3>How students access courses</h3>
+      <ol>
+        <li>Agents register and create students OR provide student credentials.</li>
+        <li>Students login with: Student ID/email + Agent ID + Agent password.</li>
+        <li>To enroll in a paid course, student provides Student ID and will be redirected to Stripe Checkout.</li>
+        <li>After payment is successful the server confirms and student's course is enrolled.</li>
+      </ol>
+      <p class="muted">This demo uses local SQLite and Stripe test keys. Do NOT use this as-is in production without secure deployment and best practices.</p>
+    </section>
+
+    <section id="dashboard" class="container section hidden" aria-live="polite">
+      <h3>Your Dashboard</h3>
+      <div id="welcome-student" class="card"></div>
+      <div id="enrolled" class="cards-grid"></div>
+      <button id="btn-logout" class="btn">Logout</button>
+    </section>
+
+    <section id="agent-portal" class="container section hidden">
+      <h3>Agent Portal</h3>
+      <div id="agent-welcome" class="card"></div>
+      <div class="card">
+        <h4>Create Student</h4>
+        <form id="create-student-form">
+          <label>Student ID (unique)<input id="new-student-id" required /></label>
+          <label>Student Name<input id="new-student-name" required /></label>
+          <label>Student Email<input id="new-student-email" /></label>
+          <div class="form-actions">
+            <button type="submit" class="btn primary">Create Student</button>
+          </div>
+          <p id="create-student-status" class="muted"></p>
+        </form>
+      </div>
+      <div class="card">
+        <h4>Students</h4>
+        <div id="agent-students-list"></div>
+      </div>
+      <button id="btn-agent-logout" class="btn">Agent Logout</button>
+    </section>
+
+    <section id="contact" class="container section">
+      <h3>Contact & Support</h3>
+      <p>If you need help, email: <a href="mailto:support@yourdomain.com">support@yourdomain.com</a>.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <small>© <span id="year"></span> Maths Learner by SP Sir — All rights reserved.</small>
+      <div>
+        <a href="#contact">Contact</a> · <a href="#how">How Access Works</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Student Login Modal -->
+  <div id="modal-login" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-panel">
+      <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+      <h4>Student Login</h4>
+      <form id="login-form">
+        <label>Student ID / Email<input type="text" id="student-id" required /></label>
+        <label>Agent ID<input type="text" id="agent-id" required /></label>
+        <label>Agent Password<input type="password" id="agent-password" required /></label>
+        <div class="form-actions">
+          <button type="submit" class="btn primary">Login</button>
+        </div>
+        <p id="login-status" class="muted"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Agent Login Modal -->
+  <div id="modal-agent" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-panel">
+      <button class="modal-close" id="modal-agent-close" aria-label="Close">&times;</button>
+      <h4>Agent Login</h4>
+      <form id="agent-login-form">
+        <label>Agent ID<input type="text" id="agent-login-id" required /></label>
+        <label>Agent Password<input type="password" id="agent-login-password" required /></label>
+        <div class="form-actions">
+          <button type="submit" class="btn primary">Login</button>
+        </div>
+        <p id="agent-login-status" class="muted"></p>
+      </form>
+      <p class="muted small">Agents must be registered by admin (see server .env ADMIN_SECRET for demo).</p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
